@@ -13,14 +13,14 @@
   padding-top: 6%;
   padding-left: 12%;
   padding-right: 12%;
-  background-image: url("../images/greybg.jpg");
+  background-image: url("../../images/greybg.jpg");
   background-repeat: no-repeat;
   background-size: 100%;
   height: 100vh;
   width: 100vw;
 }
 .imgside {
-  background-image: url("../images/pattern.png");
+  background-image: url("../../images/pattern.png");
   background-repeat: no-repeat;
   background-size: 100%;
   padding-top: 8%;
