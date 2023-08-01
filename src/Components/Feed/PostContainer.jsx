@@ -20,7 +20,7 @@ function PostContainer({ title, body, postId, userId }) {
   }, []);
 
   return (
-    <div className="card" style={{ width: "100%" }}>
+    <div className="card mt-4" style={{ width: "100%" }}>
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <h6 className="card-subtitle mb-2 text-body-secondary">
@@ -28,7 +28,7 @@ function PostContainer({ title, body, postId, userId }) {
         </h6>
         <p className="card-text">{body}</p>
         <a
-          className="btn btn-primary"
+          className="btn btn-primary mb-3"
           data-bs-toggle="collapse"
           data-bs-target={`#collapse${postId}`}
           role="button"
@@ -39,7 +39,7 @@ function PostContainer({ title, body, postId, userId }) {
         </a>
         <div className="collapse" id={`collapse${postId}`}>
           <div className="card card-body">
-            <div className="card">
+            <div className="card mb-3">
               <div className="card-body">
                 <form>
                   <input

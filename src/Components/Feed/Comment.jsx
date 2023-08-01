@@ -2,7 +2,7 @@ import React from "react";
 
 function UserComment({ title, email, body }) {
   return (
-    <div className="card">
+    <div className="card mb-3">
       <div className="card-header">{title}</div>
       <div className="card-body">
         <blockquote className="blockquote mb-0">

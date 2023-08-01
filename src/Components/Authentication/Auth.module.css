@@ -11,8 +11,8 @@
 }
 .outercontainer {
   padding-top: 6%;
-  padding-left: 12%;
-  padding-right: 12%;
+  padding-left: 10% !important;
+  padding-right: 10% !important;
   background-image: url("../../images/greybg.jpg");
   background-repeat: no-repeat;
   background-size: 100%;

@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../Authentication/Auth.module.css";
 
 function SignupForm({ statefun }) {
   const onclickfun = () => {
@@ -6,8 +7,8 @@ function SignupForm({ statefun }) {
   };
   return (
     <>
-      <div className="col-8 formside">
-        <h1 className="headingtext">Create a New Account</h1>
+      <div className={`col-8 ${styles.formside}`}>
+        <h1 className={styles.headingtext}>Create a New Account</h1>
         <form>
           <div className="row pt-4 ">
             <input
@@ -27,10 +28,10 @@ function SignupForm({ statefun }) {
             />
           </div>
         </form>
-        <button className="btn formbtn">Sign Up</button>
+        <button className={`btn ${styles.formbtn}`}>Sign Up</button>
       </div>
       <div
-        className="col-4 imgside px-5"
+        className={`col-4 ${styles.imgside} px-5`}
         style={{ alignItems: "center", textAlign: "center" }}
       >
         <h1 className="pb-3 fs-1 fw-bold">Welcome!</h1>

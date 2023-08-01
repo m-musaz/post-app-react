@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import "./Auth.css";
+import styles from "./Auth.module.css";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
 function LoginSignup() {
   const [formstate, setformstate] = useState(false);
   return (
-    <div className="containter-fluid outercontainer">
+    <div className={`container-fluid ${styles.outercontainer}`}>
       <div className="row">
-        <div className="col-12 innercontainer">
+        <div className={`col-12 ${styles.innercontainer}`}>
           <div className="row">
             {formstate === true ? (
               <SignupForm statefun={setformstate} />
