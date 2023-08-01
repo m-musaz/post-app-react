@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/welcome" element={<Auth />}></Route>
+        <Route path="/auth" element={<Auth />}></Route>
         <Route path="/feed" element={<UserFeed />}></Route>
         <Route path="*" element={<InvalidURL />}></Route>
       </Routes>

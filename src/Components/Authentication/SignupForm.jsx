@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../Authentication/Auth.module.css";
 
 function SignupForm({ statefun }) {
-  const onclickfun = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    localStorage.setItem(
+      `${email}`,
+      JSON.stringify({
+        id: 1,
+        name: `${name}`,
+        email: `${email}`,
+        password: `${password}`,
+      })
+    );
+    console.log(localStorage);
     statefun(false);
   };
   return (
@@ -15,20 +30,32 @@ function SignupForm({ statefun }) {
               className="form-control"
               type="text"
               placeholder="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="row pt-3">
-            <input className="form-control" type="text" placeholder="Email" />
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="row pt-3 pb-3">
             <input
               className="form-control"
               type="text"
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </form>
-        <button className={`btn ${styles.formbtn}`}>Sign Up</button>
+        <button className={`btn ${styles.formbtn}`} onClick={handleSubmit}>
+          Sign Up
+        </button>
       </div>
       <div
         className={`col-4 ${styles.imgside} px-5`}
@@ -38,7 +65,7 @@ function SignupForm({ statefun }) {
         <h3 className="pb-4 fw-light">Already have an account?</h3>
         <button
           className="btn btn-outline-light mt-2 px-5"
-          onClick={onclickfun}
+          onClick={() => statefun(false)}
         >
           Login
         </button>

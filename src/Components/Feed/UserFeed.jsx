@@ -28,22 +28,26 @@ function UserFeed() {
     <>
       <div className="row">
         <div className="col-12">
-          <nav class="navbar bg-body-tertiary">
-            <form class="container-fluid justify-content-start px-5">
-              <a class="navbar-brand" href="#">
+          <nav className="navbar bg-body-tertiary">
+            <form className="container-fluid justify-content-start px-5">
+              <a className="navbar-brand" href="#">
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Threads_%28app%29_logo.svg"
                   alt="Logo"
                   width="30"
                   height="24"
-                  class="d-inline-block align-text-top"
+                  className="d-inline-block align-text-top"
                 />
                 Threads
               </a>
-              <button class="btn btn-primary me-2 px-4" style={{marginLeft:"70%"}} type="button">
+              <button
+                className="btn btn-primary me-2 px-4"
+                style={{ marginLeft: "70%" }}
+                type="button"
+              >
                 Login
               </button>
-              <button class="btn btn-primary me-2 px-3" type="button">
+              <button className="btn btn-primary me-2 px-3" type="button">
                 Sign Up
               </button>
             </form>

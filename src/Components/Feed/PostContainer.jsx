@@ -13,7 +13,7 @@ function PostContainer({ title, body, postId, userId }) {
         );
         setUserComments(res?.data);
       } catch (err) {
-        console.log(err);
+        alert(err);
       }
     }
     fetchData();
