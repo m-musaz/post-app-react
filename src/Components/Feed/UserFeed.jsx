@@ -4,12 +4,13 @@ import PostContainer from "./PostContainer";
 import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import styles from "./UserFeed.module.css";
-import { LoginId } from "../../Context/LoginId";
+import { useNavigate } from "react-router-dom";
 
 function UserFeed() {
   const [posts, setPosts] = useState(null);
   const [Loading, setLoading] = useState(true);
-  const { loginId, setLoginId } = useContext(LoginId);
+  const [userLoggedIn, setuserLoggedIn] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -24,7 +25,12 @@ function UserFeed() {
       }
     }
     fetchData();
+    setuserLoggedIn(localStorage.getItem("LoggedIn"));
   }, []);
+
+  useEffect(() => {
+    setuserLoggedIn(localStorage.getItem("LoggedIn"));
+  }, [userLoggedIn]);
 
   return (
     <>
@@ -42,17 +48,33 @@ function UserFeed() {
                 />
                 Threads
               </a>
-              <button
-                className="btn btn-primary me-2 px-4"
-                style={{ marginLeft: "70%" }}
-                type="button"
-                onClick={() => alert(loginId)}
-              >
-                Login
-              </button>
-              <button className="btn btn-primary me-2 px-3" type="button">
-                Sign Up
-              </button>
+              {userLoggedIn == "" ? (
+                <>
+                  <button
+                    className="btn btn-primary me-2 px-4"
+                    style={{ marginLeft: "70%" }}
+                    type="button"
+                    onClick={() => navigate("/auth")}
+                  >
+                    Login
+                  </button>
+                  <button className="btn btn-primary me-2 px-3" type="button">
+                    Sign Up
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="btn btn-primary me-2 px-4"
+                  style={{ marginLeft: "80%" }}
+                  type="button"
+                  onClick={() => {
+                    setuserLoggedIn("");
+                    localStorage.setItem("LoggedIn", "");
+                  }}
+                >
+                  Log Out
+                </button>
+              )}
             </form>
           </nav>
         </div>

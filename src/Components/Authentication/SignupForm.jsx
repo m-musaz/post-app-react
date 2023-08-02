@@ -12,12 +12,18 @@ function SignupForm({ statefun }) {
     localStorage.setItem(
       `${values.email}`,
       JSON.stringify({
-        id: 1,
+        id: localStorage.getItem("UserCount"),
         name: `${values.name}`,
         email: `${values.email}`,
         password: `${values.password}`,
       })
     );
+    localStorage.setItem(
+      "UserCount",
+      parseInt(localStorage.getItem("UserCount")) + 1
+    );
+    // localStorage.clear();
+    // localStorage.setItem("UserCount", 1);
     console.log(localStorage);
     statefun(false);
   };

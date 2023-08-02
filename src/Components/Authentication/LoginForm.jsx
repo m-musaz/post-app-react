@@ -7,7 +7,6 @@ import { LoginId } from "../../Context/LoginId";
 
 function LoginForm({ statefun }) {
   const navigate = useNavigate();
-  const { loginId, setLoginId } = useContext(LoginId);
   const [password, setPassword] = useState("");
   const [fetchedUser, setfetchedUser] = useState(null);
 
@@ -28,19 +27,13 @@ function LoginForm({ statefun }) {
     if (fetchedUser) {
       if (password == fetchedUser.password) {
         console.log(`welcome ${formik.values.email}`);
-        setLoginId(fetchedUser.id);
+        localStorage.setItem("LoggedIn", fetchedUser.id);
+        navigate("/feed");
       } else {
         alert("incorrect password");
       }
     }
   }, [fetchedUser]);
-
-  useEffect(() => {
-    if (loginId !== "") {
-      console.log(loginId);
-      navigate("/feed");
-    }
-  }, [loginId]);
 
   const formik = useFormik({
     initialValues: {
