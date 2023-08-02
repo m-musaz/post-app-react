@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../Authentication/Auth.module.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { LoginId } from "../../Context/LoginId";
 
 function LoginForm({ statefun }) {
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
+  const { loginId, setLoginId } = useContext(LoginId);
   const [password, setPassword] = useState("");
   const [fetchedUser, setfetchedUser] = useState(null);
 
@@ -20,12 +20,27 @@ function LoginForm({ statefun }) {
 
   const handleSubmit = (values) => {
     // Handle form submission here
-    console.log("Form submitted:", values.email);
-    setfetchedUser(JSON?.parse(localStorage.getItem(`${values.email}`)));
-    console.log(fetchedUser?.password);
-    // localStorage.clear();
-    console.log(localStorage);
+    setfetchedUser(JSON.parse(localStorage.getItem(`${values.email}`)));
+    setPassword(formik.values.password);
   };
+
+  useEffect(() => {
+    if (fetchedUser) {
+      if (password == fetchedUser.password) {
+        console.log(`welcome ${formik.values.email}`);
+        setLoginId(fetchedUser.id);
+      } else {
+        alert("incorrect password");
+      }
+    }
+  }, [fetchedUser]);
+
+  useEffect(() => {
+    if (loginId !== "") {
+      console.log(loginId);
+      navigate("/feed");
+    }
+  }, [loginId]);
 
   const formik = useFormik({
     initialValues: {
@@ -36,34 +51,10 @@ function LoginForm({ statefun }) {
     onSubmit: handleSubmit,
   });
 
-  useEffect(() => {
-    setfetchedUser(JSON?.parse(localStorage.getItem(`${formik.values.email}`)));
-  }, [formik.isSubmitting]);
-
   return (
     <>
       <div className={`col-8 ${styles.formside}`}>
         <h1 className={styles.headingtext}>Login to your Account</h1>
-        {/* <form>
-          <div className="row pt-4">
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="row pt-3 pb-3">
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-        </form> */}
         <form onSubmit={formik.handleSubmit}>
           <div className="row pt-4">
             <input

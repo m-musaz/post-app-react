@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import PostContainer from "./PostContainer";
 import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import styles from "./UserFeed.module.css";
+import { LoginId } from "../../Context/LoginId";
 
 function UserFeed() {
   const [posts, setPosts] = useState(null);
   const [Loading, setLoading] = useState(true);
+  const { loginId, setLoginId } = useContext(LoginId);
 
   useEffect(() => {
     async function fetchData() {
@@ -44,6 +46,7 @@ function UserFeed() {
                 className="btn btn-primary me-2 px-4"
                 style={{ marginLeft: "70%" }}
                 type="button"
+                onClick={() => alert(loginId)}
               >
                 Login
               </button>
