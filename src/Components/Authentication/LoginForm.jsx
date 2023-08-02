@@ -27,7 +27,8 @@ function LoginForm({ statefun }) {
     if (fetchedUser) {
       if (password == fetchedUser.password) {
         console.log(`welcome ${formik.values.email}`);
-        localStorage.setItem("LoggedIn", fetchedUser.id);
+        localStorage.setItem("LoggedIn", JSON.stringify(fetchedUser));
+        console.log(localStorage);
         navigate("/feed");
       } else {
         alert("incorrect password");

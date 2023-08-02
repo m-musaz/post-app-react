@@ -16,7 +16,7 @@ function PostContainer({ title, body, postId, userId }) {
         alert(err);
       }
     }
-    fetchData();
+    postId ? fetchData() : undefined;
   }, []);
 
   return (

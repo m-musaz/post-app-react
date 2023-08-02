@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import PostContainer from "./PostContainer";
+import NewPost from "./NewPost";
 import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import styles from "./UserFeed.module.css";
@@ -25,12 +26,12 @@ function UserFeed() {
       }
     }
     fetchData();
-    setuserLoggedIn(localStorage.getItem("LoggedIn"));
+    setuserLoggedIn(JSON.parse(localStorage.getItem("LoggedIn")));
   }, []);
 
-  useEffect(() => {
-    setuserLoggedIn(localStorage.getItem("LoggedIn"));
-  }, [userLoggedIn]);
+  // useEffect(() => {
+  //   setuserLoggedIn(JSON.parse(localStorage.getItem("LoggedIn")));
+  // }, [userLoggedIn]);
 
   return (
     <>
@@ -82,6 +83,9 @@ function UserFeed() {
       <div className={`container-fluid ${styles.outercontainer}`}>
         <div className="row">
           <div className={`col-12 ${styles.innercontainer}`}>
+            {userLoggedIn !== "" ? (
+              <NewPost userId={userLoggedIn?.id} />
+            ) : undefined}
             <div className="row">
               {Loading ? (
                 <RotatingLines
