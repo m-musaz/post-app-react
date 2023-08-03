@@ -7,11 +7,10 @@ function NewPost({ userId }) {
 
   const handleSubmit = () => {
     const obj = { postTitle: title, postBody: body };
-    setPosts([...posts, obj]);
+    setPosts([obj, ...posts]);
   };
 
   const removePost = (posttitle) => {
-    console.log(posts);
     setPosts(posts.filter((post) => post.postTitle != posttitle));
   };
 
@@ -53,8 +52,10 @@ function NewPost({ userId }) {
               title={post?.postTitle}
               body={post?.postBody}
               postId={null}
-              userId={userId}
+              userId={userId?.id}
+              userloggedIn={userId}
               key={post?.postTitle}
+              removePost={removePost}
             />
           ))
         : undefined}

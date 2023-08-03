@@ -33,6 +33,10 @@ function UserFeed() {
   //   setuserLoggedIn(JSON.parse(localStorage.getItem("LoggedIn")));
   // }, [userLoggedIn]);
 
+  const removePost = (posttitle) => {
+    setPosts(posts.filter((post) => post.title != posttitle));
+  };
+
   return (
     <>
       <div className="row">
@@ -84,7 +88,7 @@ function UserFeed() {
         <div className="row">
           <div className={`col-12 ${styles.innercontainer}`}>
             {userLoggedIn !== "" ? (
-              <NewPost userId={userLoggedIn?.id} />
+              <NewPost userId={userLoggedIn} />
             ) : undefined}
             <div className="row">
               {Loading ? (
@@ -103,6 +107,8 @@ function UserFeed() {
                     postId={post?.id}
                     userId={post?.userId}
                     key={post?.id}
+                    userloggedIn={userLoggedIn}
+                    removePost={removePost}
                   />
                 ))
               )}

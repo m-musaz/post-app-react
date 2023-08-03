@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import UserComment from "./Comment";
 import axios from "axios";
 
-function PostContainer({ title, body, postId, userId }) {
+function PostContainer({
+  title,
+  body,
+  postId,
+  userId,
+  userloggedIn,
+  removePost
+}) {
   const [userComments, setUserComments] = useState(null);
 
   useEffect(() => {
@@ -16,13 +23,23 @@ function PostContainer({ title, body, postId, userId }) {
         alert(err);
       }
     }
+
     postId ? fetchData() : undefined;
   }, []);
 
   return (
     <div className="card mt-4" style={{ width: "100%" }}>
       <div className="card-body">
-        <h5 className="card-title">{title}</h5>
+        <div className="row justify-content-end">
+          {userloggedIn.id == userId ? (
+            <button
+              type="button"
+              className="btn-close"
+              onClick={() => removePost(title)}
+            ></button>
+          ) : undefined}
+          <h5 className="card-title">{title}</h5>
+        </div>
         <h6 className="card-subtitle mb-2 text-body-secondary">
           {"User: " + userId}
         </h6>
