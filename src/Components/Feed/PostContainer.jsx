@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import UserComment from "./Comment";
 import axios from "axios";
 import EditPost from "./editPost";
+import NewComment from "./NewComment";
 
 function PostContainer({
   title,
@@ -79,27 +80,17 @@ function PostContainer({
             ) : undefined}
 
             <div className="collapse" id={`collapse${postId}`}>
-              <div className="card card-body">
-                <div className="card mb-3">
-                  <div className="card-body">
-                    <form>
-                      <input
-                        className="form-control"
-                        placeholder="Write a comment"
-                      ></input>
-                      <button className="btn btn-primary">Post</button>
-                    </form>
-                  </div>
-                </div>
-                {userComments?.map((comment) => (
-                  <UserComment
-                    title={comment?.name}
-                    email={comment?.email}
-                    body={comment?.body}
-                    key={comment?.id}
-                  />
-                ))}
-              </div>
+              {userloggedIn != "" ? (
+                <NewComment userloggedIn={userloggedIn} />
+              ) : undefined}
+              {userComments?.map((comment) => (
+                <UserComment
+                  title={comment?.name}
+                  email={comment?.email}
+                  body={comment?.body}
+                  key={comment?.id}
+                />
+              ))}
             </div>
           </div>
         </div>
