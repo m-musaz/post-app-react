@@ -11,8 +11,10 @@ function NewComment({ userloggedIn }) {
     setcomments([obj, ...comments]);
   };
 
-  const removePost = (posttitle) => {
-    setcomments(comments.filter((post) => post.postTitle != posttitle));
+  const removeComment = (posttitle) => {
+    setcomments(
+      comments.filter((comment) => comment.commentTitle != posttitle)
+    );
   };
 
   return (
@@ -49,6 +51,7 @@ function NewComment({ userloggedIn }) {
               body={post?.commentBody}
               key={post?.commentTitle}
               userLoggedIn={userloggedIn}
+              removeComment={removeComment}
             />
           ))
         : undefined}

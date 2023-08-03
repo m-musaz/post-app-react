@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import EditPost from "./editPost";
 
-function UserComment({ title, email, body, userLoggedIn }) {
+function UserComment({ title, email, body, userLoggedIn, removeComment }) {
   const [editMode, setEditMode] = useState(false);
   const [commentTitle, setCommentTitle] = useState(title);
   const [commentBody, setCommentBody] = useState(body);
@@ -18,7 +18,16 @@ function UserComment({ title, email, body, userLoggedIn }) {
         />
       ) : (
         <div className="card mb-3">
-          <div className="card-header">{commentTitle}</div>
+          <div className="card-header d-flex justify-content-between">
+            {commentTitle}
+            {userLoggedIn.email == email ? (
+              <button
+                type="button"
+                className="btn-close"
+                onClick={() => removeComment(commentTitle)}
+              ></button>
+            ) : undefined}
+          </div>
           <div className="card-body">
             <blockquote className="blockquote mb-0">
               <p style={{ whiteSpace: "pre-wrap" }}>{commentBody}</p>

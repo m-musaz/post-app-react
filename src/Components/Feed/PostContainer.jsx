@@ -32,6 +32,12 @@ function PostContainer({
     postId ? fetchData() : undefined;
   }, []);
 
+  const removeComment = (commentTitle) => {
+    setUserComments(
+      userComments.filter((comment) => comment.name != commentTitle)
+    );
+  };
+
   return (
     <>
       {editMode ? (
@@ -90,6 +96,7 @@ function PostContainer({
                   body={comment?.body}
                   key={comment?.id}
                   userLoggedIn={userloggedIn}
+                  removeComment={removeComment}
                 />
               ))}
             </div>
