@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UserComment from "./Comment";
 import axios from "axios";
+import EditPost from "./editPost";
 
 function PostContainer({
   title,
@@ -8,9 +9,12 @@ function PostContainer({
   postId,
   userId,
   userloggedIn,
-  removePost
+  removePost,
 }) {
   const [userComments, setUserComments] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [postTitle, setPostTitle] = useState(title);
+  const [postBody, setPostBody] = useState(body);
 
   useEffect(() => {
     async function fetchData() {
@@ -28,57 +32,79 @@ function PostContainer({
   }, []);
 
   return (
-    <div className="card mt-4" style={{ width: "100%" }}>
-      <div className="card-body">
-        <div className="row justify-content-end">
-          {userloggedIn.id == userId ? (
-            <button
-              type="button"
-              className="btn-close"
-              onClick={() => removePost(title)}
-            ></button>
-          ) : undefined}
-          <h5 className="card-title">{title}</h5>
-        </div>
-        <h6 className="card-subtitle mb-2 text-body-secondary">
-          {"User: " + userId}
-        </h6>
-        <p className="card-text">{body}</p>
-        <a
-          className="btn btn-primary mb-3"
-          data-bs-toggle="collapse"
-          data-bs-target={`#collapse${postId}`}
-          role="button"
-          aria-expanded="false"
-          aria-controls="collapseExample"
-        >
-          Comments
-        </a>
-        <div className="collapse" id={`collapse${postId}`}>
-          <div className="card card-body">
-            <div className="card mb-3">
-              <div className="card-body">
-                <form>
-                  <input
-                    className="form-control"
-                    placeholder="Write a comment"
-                  ></input>
-                  <button className="btn btn-primary">Post</button>
-                </form>
+    <>
+      {editMode ? (
+        <EditPost
+          Body={postBody}
+          Title={postTitle}
+          setBody={setPostBody}
+          setTitle={setPostTitle}
+          setEditMode={setEditMode}
+        />
+      ) : (
+        <div className="card mt-4" style={{ width: "100%" }}>
+          <div className="card-body">
+            <div className="row justify-content-end">
+              {userloggedIn.id == userId ? (
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => removePost(title)}
+                ></button>
+              ) : undefined}
+              <h5 className="card-title">{postTitle}</h5>
+            </div>
+            <h6 className="card-subtitle mb-2 text-body-secondary">
+              {"User: " + userId}
+            </h6>
+            <p className="card-text">{postBody}</p>
+            <a
+              className="btn btn-primary mb-3"
+              data-bs-toggle="collapse"
+              data-bs-target={`#collapse${postId}`}
+              role="button"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              Comments
+            </a>
+            {userloggedIn.id == userId ? (
+              <a
+                className="btn btn-primary mb-3 mx-3"
+                role="button"
+                onClick={() => setEditMode(true)}
+              >
+                Edit Post
+              </a>
+            ) : undefined}
+
+            <div className="collapse" id={`collapse${postId}`}>
+              <div className="card card-body">
+                <div className="card mb-3">
+                  <div className="card-body">
+                    <form>
+                      <input
+                        className="form-control"
+                        placeholder="Write a comment"
+                      ></input>
+                      <button className="btn btn-primary">Post</button>
+                    </form>
+                  </div>
+                </div>
+                {userComments?.map((comment) => (
+                  <UserComment
+                    title={comment?.name}
+                    email={comment?.email}
+                    body={comment?.body}
+                    key={comment?.id}
+                  />
+                ))}
               </div>
             </div>
-            {userComments?.map((comment) => (
-              <UserComment
-                title={comment?.name}
-                email={comment?.email}
-                body={comment?.body}
-                key={comment?.id}
-              />
-            ))}
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
