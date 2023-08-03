@@ -89,6 +89,7 @@ function PostContainer({
                   email={comment?.email}
                   body={comment?.body}
                   key={comment?.id}
+                  userLoggedIn={userloggedIn}
                 />
               ))}
             </div>

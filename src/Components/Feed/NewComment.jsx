@@ -48,6 +48,7 @@ function NewComment({ userloggedIn }) {
               email={userloggedIn.email}
               body={post?.commentBody}
               key={post?.commentTitle}
+              userLoggedIn={userloggedIn}
             />
           ))
         : undefined}
