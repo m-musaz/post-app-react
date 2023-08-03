@@ -9,6 +9,10 @@ function SignupForm({ statefun }) {
   const [name, setName] = useState("");
 
   const handleSubmit = (values) => {
+    
+    if (localStorage.getItem("UserCount") == null) {
+      localStorage.setItem("UserCount", 1);
+    }
     localStorage.setItem(
       `${values.email}`,
       JSON.stringify({
