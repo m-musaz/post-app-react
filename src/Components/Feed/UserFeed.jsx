@@ -26,7 +26,11 @@ function UserFeed() {
       }
     }
     fetchData();
-    setuserLoggedIn(JSON.parse(localStorage.getItem("LoggedIn")));
+    try {
+      setuserLoggedIn(JSON.parse(localStorage.getItem("LoggedIn")));
+    } catch {
+      setuserLoggedIn("");
+    }
   }, []);
 
   // useEffect(() => {
