@@ -37,7 +37,7 @@ function UserComment({ title, email, body, userLoggedIn, removeComment }) {
             </blockquote>
             {userLoggedIn.email == email ? (
               <a
-                className="btn btn-primary my-3"
+                className="btn btn-dark my-3"
                 role="button"
                 onClick={() => setEditMode(true)}
               >

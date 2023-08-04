@@ -38,7 +38,7 @@ function NewPost({ userId }) {
             onChange={(e) => setBody(e.target.value)}
           ></textarea>
           <a
-            className="btn btn-primary mb-3 mt-3"
+            className="btn btn-dark mb-3 mt-3"
             role="button"
             onClick={handleSubmit}
           >

@@ -66,7 +66,7 @@ function PostContainer({
             </h6>
             <p className="card-text">{postBody}</p>
             <a
-              className="btn btn-primary mb-3"
+              className="btn btn-dark mb-3"
               data-bs-toggle="collapse"
               data-bs-target={`#collapse${postId}`}
               role="button"
@@ -77,7 +77,7 @@ function PostContainer({
             </a>
             {userloggedIn.id == userId ? (
               <a
-                className="btn btn-primary mb-3 mx-3"
+                className="btn btn-dark mb-3 mx-3"
                 role="button"
                 onClick={() => setEditMode(true)}
               >

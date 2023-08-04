@@ -45,36 +45,39 @@ function UserFeed() {
     <>
       <div className="row">
         <div className="col-12">
-          <nav className="navbar bg-body-tertiary">
+          <nav className="navbar bg-dark">
             <form className="container-fluid justify-content-start px-5">
-              <a className="navbar-brand" href="#">
+              <a className="navbar-brand text-white fw-bold" href="#">
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Threads_%28app%29_logo.svg"
+                  src="https://i.ibb.co/3T3WzfZ/Threads-White-Icon-Logo-Vector.png"
                   alt="Logo"
                   width="30"
                   height="24"
-                  className="d-inline-block align-text-top"
+                  className="d-inline-block align-text-top mx-2"
                 />
                 Threads
               </a>
               {userLoggedIn == "" ? (
                 <>
                   <button
-                    className="btn btn-primary me-2 px-4"
+                    className="btn btn-outline-light me-2 px-4"
                     style={{ marginLeft: "70%" }}
                     type="button"
                     onClick={() => navigate("/auth")}
                   >
                     Login
                   </button>
-                  <button className="btn btn-primary me-2 px-3" type="button">
+                  <button
+                    className="btn btn-outline-light me-2 px-3"
+                    type="button"
+                  >
                     Sign Up
                   </button>
                 </>
               ) : (
                 <button
-                  className="btn btn-primary me-2 px-4"
-                  style={{ marginLeft: "80%" }}
+                  className="btn btn-outline-light me-2 px-4"
+                  style={{ marginLeft: "75%" }}
                   type="button"
                   onClick={() => {
                     setuserLoggedIn("");
