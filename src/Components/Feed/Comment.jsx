@@ -20,12 +20,14 @@ function UserComment({ title, email, body, userLoggedIn, removeComment }) {
         <div className="card mb-3">
           <div className="card-header d-flex justify-content-between">
             {commentTitle}
-            {userLoggedIn.email == email ? (
-              <button
-                type="button"
-                className="btn-close"
-                onClick={() => removeComment(commentTitle)}
-              ></button>
+            {userLoggedIn ? (
+              userLoggedIn.email == email ? (
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => removeComment(commentTitle)}
+                ></button>
+              ) : undefined
             ) : undefined}
           </div>
           <div className="card-body">
@@ -35,14 +37,16 @@ function UserComment({ title, email, body, userLoggedIn, removeComment }) {
                 {email}
               </footer>
             </blockquote>
-            {userLoggedIn.email == email ? (
-              <a
-                className="btn btn-dark my-3"
-                role="button"
-                onClick={() => setEditMode(true)}
-              >
-                Edit Comment
-              </a>
+            {userLoggedIn ? (
+              userLoggedIn.email == email ? (
+                <a
+                  className="btn btn-dark my-3"
+                  role="button"
+                  onClick={() => setEditMode(true)}
+                >
+                  Edit Comment
+                </a>
+              ) : undefined
             ) : undefined}
           </div>
         </div>

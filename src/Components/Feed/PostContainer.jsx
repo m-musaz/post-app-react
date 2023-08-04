@@ -52,12 +52,14 @@ function PostContainer({
         <div className="card mt-4" style={{ width: "100%" }}>
           <div className="card-body">
             <div className="row justify-content-end">
-              {userloggedIn.id == userId ? (
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => removePost(title)}
-                ></button>
+              {userloggedIn ? (
+                userloggedIn.id == userId ? (
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => removePost(title)}
+                  ></button>
+                ) : undefined
               ) : undefined}
               <h5 className="card-title">{postTitle}</h5>
             </div>
@@ -75,19 +77,23 @@ function PostContainer({
             >
               Comments
             </a>
-            {userloggedIn.id == userId ? (
-              <a
-                className="btn btn-dark mb-3 mx-3"
-                role="button"
-                onClick={() => setEditMode(true)}
-              >
-                Edit Post
-              </a>
+            {userloggedIn ? (
+              userloggedIn.id == userId ? (
+                <a
+                  className="btn btn-dark mb-3 mx-3"
+                  role="button"
+                  onClick={() => setEditMode(true)}
+                >
+                  Edit Post
+                </a>
+              ) : undefined
             ) : undefined}
 
             <div className="collapse" id={`collapse${postId}`}>
-              {userloggedIn != "" ? (
-                <NewComment userloggedIn={userloggedIn} />
+              {userloggedIn ? (
+                userloggedIn.id ? (
+                  <NewComment userloggedIn={userloggedIn} />
+                ) : undefined
               ) : undefined}
               {userComments?.map((comment) => (
                 <UserComment

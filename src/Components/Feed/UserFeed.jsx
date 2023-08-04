@@ -33,10 +33,6 @@ function UserFeed() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   setuserLoggedIn(JSON.parse(localStorage.getItem("LoggedIn")));
-  // }, [userLoggedIn]);
-
   const removePost = (posttitle) => {
     setPosts(posts.filter((post) => post.title != posttitle));
   };
@@ -57,7 +53,38 @@ function UserFeed() {
                 />
                 Threads
               </a>
-              {userLoggedIn == "" ? (
+              {userLoggedIn ? (
+                userLoggedIn.id ? (
+                  <button
+                    className="btn btn-outline-light me-2 px-4"
+                    style={{ marginLeft: "75%" }}
+                    type="button"
+                    onClick={() => {
+                      setuserLoggedIn("");
+                      localStorage.setItem("LoggedIn", "");
+                    }}
+                  >
+                    Log Out
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      className="btn btn-outline-light me-2 px-4"
+                      style={{ marginLeft: "70%" }}
+                      type="button"
+                      onClick={() => navigate("/auth")}
+                    >
+                      Login
+                    </button>
+                    <button
+                      className="btn btn-outline-light me-2 px-3"
+                      type="button"
+                    >
+                      Sign Up
+                    </button>
+                  </>
+                )
+              ) : (
                 <>
                   <button
                     className="btn btn-outline-light me-2 px-4"
@@ -74,28 +101,26 @@ function UserFeed() {
                     Sign Up
                   </button>
                 </>
-              ) : (
-                <button
-                  className="btn btn-outline-light me-2 px-4"
-                  style={{ marginLeft: "75%" }}
-                  type="button"
-                  onClick={() => {
-                    setuserLoggedIn("");
-                    localStorage.setItem("LoggedIn", "");
-                  }}
-                >
-                  Log Out
-                </button>
               )}
             </form>
           </nav>
         </div>
       </div>
-      <div className={`container-fluid ${styles.outercontainer}`}>
-        <div className="row">
+      <div className={`container-fluid  ${styles.outercontainer}`}>
+        <div className="row ">
           <div className={`col-12 ${styles.innercontainer}`}>
-            {userLoggedIn !== "" ? (
-              <NewPost userId={userLoggedIn} />
+            {userLoggedIn ? (
+              userLoggedIn.id ? (
+                <>
+                  <div className="text-center mt-3">
+                    <h1 className="display-3">
+                      Welcome Back {userLoggedIn.name}
+                    </h1>
+                    <h5 className="display-5">User : {userLoggedIn.id}</h5>
+                  </div>
+                  <NewPost userId={userLoggedIn} />
+                </>
+              ) : undefined
             ) : undefined}
             <div className="row">
               {Loading ? (
