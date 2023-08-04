@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Auth.module.css";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+import { useLocation } from "react-router-dom";
 
 function LoginSignup() {
   const [formstate, setformstate] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    location.search == "?signout=true" ? setformstate(true) : undefined;
+  }, []);
   return (
     <div className={`container-fluid ${styles.outercontainer}`}>
       <div className="row">

@@ -79,6 +79,9 @@ function UserFeed() {
                     <button
                       className="btn btn-outline-light me-2 px-3"
                       type="button"
+                      onClick={() =>
+                        navigate({ pathname: "/auth", search: "?signout=true" })
+                      }
                     >
                       Sign Up
                     </button>
@@ -97,6 +100,9 @@ function UserFeed() {
                   <button
                     className="btn btn-outline-light me-2 px-3"
                     type="button"
+                    onClick={() =>
+                      navigate({ pathname: "/auth", search: "?signout=true" })
+                    }
                   >
                     Sign Up
                   </button>
