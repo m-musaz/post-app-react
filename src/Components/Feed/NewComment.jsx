@@ -11,10 +11,17 @@ function NewComment({ userloggedIn }) {
     setcomments([obj, ...comments]);
   };
 
-  const removeComment = (posttitle) => {
+  const removeComment = (postTitle) => {
     setcomments(
-      comments.filter((comment) => comment.commentTitle != posttitle)
+      comments.filter((comment) => comment.commentTitle != postTitle)
     );
+  };
+
+  const handleTitleChange = (Event) => {
+    setTitle(Event.target.value);
+  };
+  const handleBodyChange = (Event) => {
+    setBody(Event.target.value);
   };
 
   return (
@@ -25,14 +32,14 @@ function NewComment({ userloggedIn }) {
             className="form-control mb-2"
             placeholder="Title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={handleTitleChange}
           ></input>
           <textarea
             className="form-control post"
             rows="3"
             placeholder="What's on your mind?"
             value={body}
-            onChange={(e) => setBody(e.target.value)}
+            onChange={handleBodyChange}
           ></textarea>
           <a
             className="btn btn-dark mb-3 mt-3"
@@ -43,18 +50,20 @@ function NewComment({ userloggedIn }) {
           </a>
         </div>
       </div>
-      {comments.length != 0
-        ? comments?.map((post) => (
-            <UserComment
-              title={post?.commentTitle}
-              email={userloggedIn.email}
-              body={post?.commentBody}
-              key={post?.commentTitle}
-              userLoggedIn={userloggedIn}
-              removeComment={removeComment}
-            />
-          ))
-        : undefined}
+      {comments.length ? (
+        comments?.map((post) => (
+          <UserComment
+            title={post?.commentTitle}
+            email={userloggedIn.email}
+            body={post?.commentBody}
+            key={post?.commentTitle}
+            userLoggedIn={userloggedIn}
+            removeComment={removeComment}
+          />
+        ))
+      ) : (
+        <></>
+      )}
     </>
   );
 }
