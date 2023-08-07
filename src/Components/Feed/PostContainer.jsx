@@ -3,6 +3,7 @@ import UserComment from "./Comment";
 import axios from "axios";
 import EditPost from "./editPost";
 import NewComment from "./NewComment";
+import { RotatingLines } from "react-loader-spinner";
 
 function PostContainer({
   title,
@@ -16,14 +17,18 @@ function PostContainer({
   const [editMode, setEditMode] = useState(false);
   const [postTitle, setPostTitle] = useState(title);
   const [postBody, setPostBody] = useState(body);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const handleClick = useCallback(() => {
     async function fetchData() {
       try {
         const res = await axios.get(
           `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
         );
         setUserComments(res?.data);
+        if (res != null) {
+          setLoading(false);
+        }
       } catch (err) {
         alert(err);
       }
@@ -97,6 +102,7 @@ function PostContainer({
               role="button"
               aria-expanded="false"
               aria-controls="collapseExample"
+              onClick={handleClick}
             >
               Comments
             </a>
@@ -118,16 +124,26 @@ function PostContainer({
               ) : (
                 false
               )}
-              {userComments?.map((comment) => (
-                <UserComment
-                  title={comment?.name}
-                  email={comment?.email}
-                  body={comment?.body}
-                  key={comment?.id}
-                  userLoggedIn={userloggedIn}
-                  removeComment={removeComment}
+              {loading ? (
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="96"
+                  visible={true}
                 />
-              ))}
+              ) : (
+                userComments?.map((comment) => (
+                  <UserComment
+                    title={comment?.name}
+                    email={comment?.email}
+                    body={comment?.body}
+                    key={comment?.id}
+                    userLoggedIn={userloggedIn}
+                    removeComment={removeComment}
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>
