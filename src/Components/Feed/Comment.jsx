@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import EditPost from "./editPost";
+import styles from "./Comment.module.css";
 
 function UserComment({ title, email, body, userLoggedIn, removeComment }) {
   const [editMode, setEditMode] = useState(false);
   const [commentTitle, setCommentTitle] = useState(title);
   const [commentBody, setCommentBody] = useState(body);
+  const handleRemoveComment = () => {
+    removeComment(commentTitle);
+  };
+  const handleEditMode = () => {
+    setEditMode(true);
+  };
   return (
     <>
       {editMode ? (
@@ -25,29 +32,31 @@ function UserComment({ title, email, body, userLoggedIn, removeComment }) {
                 <button
                   type="button"
                   className="btn-close"
-                  onClick={() => removeComment(commentTitle)}
+                  onClick={handleRemoveComment}
                 ></button>
               ) : undefined
             ) : undefined}
           </div>
           <div className="card-body">
             <blockquote className="blockquote mb-0">
-              <p style={{ whiteSpace: "pre-wrap" }}>{commentBody}</p>
-              <footer style={{ fontSize: ".875em", color: "#6c757d" }}>
-                {email}
-              </footer>
+              <p className={styles.commentBody}>{commentBody}</p>
+              <footer className={styles.commentFooter}>{email}</footer>
             </blockquote>
             {userLoggedIn ? (
               userLoggedIn.email == email ? (
-                <a
+                <button
                   className="btn btn-dark my-3"
                   role="button"
-                  onClick={() => setEditMode(true)}
+                  onClick={handleEditMode}
                 >
                   Edit Comment
-                </a>
-              ) : undefined
-            ) : undefined}
+                </button>
+              ) : (
+                <></>
+              )
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       )}
