@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import axios from "axios";
 import PostContainer from "./PostContainer";
 import NewPost from "./NewPost";
@@ -33,8 +33,8 @@ function UserFeed() {
     }
   }, []);
 
-  const removePost = (posttitle) => {
-    setPosts(posts.filter((post) => post.title != posttitle));
+  const removePost = (postTitle) => {
+    setPosts(posts.filter((post) => post.title != postTitle));
   };
 
   return (
@@ -126,8 +126,12 @@ function UserFeed() {
                   </div>
                   <NewPost userId={userLoggedIn} />
                 </>
-              ) : undefined
-            ) : undefined}
+              ) : (
+                <></>
+              )
+            ) : (
+              <></>
+            )}
             <div className="row">
               {Loading ? (
                 <RotatingLines
@@ -143,7 +147,7 @@ function UserFeed() {
                     title={post?.title}
                     body={post?.body}
                     postId={post?.id}
-                    userId={post?.userId}
+                    userId={`${post?.userId}`}
                     key={post?.id}
                     userloggedIn={userLoggedIn}
                     removePost={removePost}

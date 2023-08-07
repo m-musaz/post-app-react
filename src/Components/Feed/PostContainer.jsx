@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import UserComment from "./Comment";
 import axios from "axios";
 import EditPost from "./editPost";
@@ -28,14 +28,22 @@ function PostContainer({
         alert(err);
       }
     }
-
-    postId ? fetchData() : undefined;
+    if (postId) {
+      fetchData();
+    }
   }, []);
 
   const removeComment = (commentTitle) => {
     setUserComments(
       userComments.filter((comment) => comment.name != commentTitle)
     );
+  };
+
+  const handleEditMode = () => {
+    setEditMode(true);
+  };
+  const handleRemovePost = () => {
+    removePost(title);
   };
 
   return (
@@ -53,14 +61,18 @@ function PostContainer({
           <div className="card-body">
             <div className="row justify-content-end">
               {userloggedIn ? (
-                userloggedIn.id == userId ? (
+                userloggedIn.id === userId ? (
                   <button
                     type="button"
                     className="btn-close"
-                    onClick={() => removePost(title)}
+                    onClick={handleRemovePost}
                   ></button>
-                ) : undefined
-              ) : undefined}
+                ) : (
+                  <></>
+                )
+              ) : (
+                <></>
+              )}
               <h5 className="card-title">{postTitle}</h5>
             </div>
             <h6 className="card-subtitle mb-2 text-body-secondary">
@@ -78,23 +90,31 @@ function PostContainer({
               Comments
             </a>
             {userloggedIn ? (
-              userloggedIn.id == userId ? (
+              userloggedIn.id === userId ? (
                 <a
                   className="btn btn-dark mb-3 mx-3"
                   role="button"
-                  onClick={() => setEditMode(true)}
+                  onClick={handleEditMode}
                 >
                   Edit Post
                 </a>
-              ) : undefined
-            ) : undefined}
+              ) : (
+                <></>
+              )
+            ) : (
+              <></>
+            )}
 
             <div className="collapse" id={`collapse${postId}`}>
               {userloggedIn ? (
                 userloggedIn.id ? (
                   <NewComment userloggedIn={userloggedIn} />
-                ) : undefined
-              ) : undefined}
+                ) : (
+                  <></>
+                )
+              ) : (
+                <></>
+              )}
               {userComments?.map((comment) => (
                 <UserComment
                   title={comment?.name}
