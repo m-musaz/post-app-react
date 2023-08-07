@@ -6,6 +6,7 @@ import { useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import styles from "./UserFeed.module.css";
 import { useNavigate } from "react-router-dom";
+import fetchData from "../../Services/FetchPostData";
 
 function UserFeed() {
   const [posts, setPosts] = useState(null);
@@ -14,24 +15,24 @@ function UserFeed() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts`
-        );
-        setPosts(res?.data);
-        res !== null ? setLoading(false) : undefined;
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    fetchData();
+    fetchData(setPosts, setLoading);
     try {
       setuserLoggedIn(JSON.parse(localStorage.getItem("LoggedIn")));
     } catch {
       setuserLoggedIn("");
     }
   }, []);
+
+  const handleLogout = () => {
+    setuserLoggedIn("");
+    localStorage.setItem("LoggedIn", "");
+  };
+  const handleLogin = () => {
+    navigate("/auth");
+  };
+  const handleSignup = () => {
+    navigate({ pathname: "/auth", search: "?signout=true" });
+  };
 
   const removePost = (postTitle) => {
     setPosts(posts.filter((post) => post.title != postTitle));
@@ -56,32 +57,25 @@ function UserFeed() {
               {userLoggedIn ? (
                 userLoggedIn.id ? (
                   <button
-                    className="btn btn-outline-light me-2 px-4"
-                    style={{ marginLeft: "75%" }}
+                    className={`btn btn-outline-light me-2 px-4 ${styles.logoutbtn}`}
                     type="button"
-                    onClick={() => {
-                      setuserLoggedIn("");
-                      localStorage.setItem("LoggedIn", "");
-                    }}
+                    onClick={handleLogout}
                   >
                     Log Out
                   </button>
                 ) : (
                   <>
                     <button
-                      className="btn btn-outline-light me-2 px-4"
-                      style={{ marginLeft: "70%" }}
+                      className={`btn btn-outline-light me-2 px-4 ${styles.loginbtn}`}
                       type="button"
-                      onClick={() => navigate("/auth")}
+                      onClick={handleLogin}
                     >
                       Login
                     </button>
                     <button
                       className="btn btn-outline-light me-2 px-3"
                       type="button"
-                      onClick={() =>
-                        navigate({ pathname: "/auth", search: "?signout=true" })
-                      }
+                      onClick={handleSignup}
                     >
                       Sign Up
                     </button>
@@ -90,19 +84,16 @@ function UserFeed() {
               ) : (
                 <>
                   <button
-                    className="btn btn-outline-light me-2 px-4"
-                    style={{ marginLeft: "70%" }}
+                    className={`btn btn-outline-light me-2 px-4 ${styles.loginbtn}`}
                     type="button"
-                    onClick={() => navigate("/auth")}
+                    onClick={handleLogin}
                   >
                     Login
                   </button>
                   <button
                     className="btn btn-outline-light me-2 px-3"
                     type="button"
-                    onClick={() =>
-                      navigate({ pathname: "/auth", search: "?signout=true" })
-                    }
+                    onClick={handleSignup}
                   >
                     Sign Up
                   </button>
