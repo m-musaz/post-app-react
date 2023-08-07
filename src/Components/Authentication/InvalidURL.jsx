@@ -1,7 +1,7 @@
 import React from "react";
 import { RotatingLines } from "react-loader-spinner";
 
-function InvalidURL() {
+const InvalidURL = () => {
   return (
     <div className="containter-fluid">
       <div className="row">
@@ -19,6 +19,6 @@ function InvalidURL() {
       </div>
     </div>
   );
-}
+};
 
 export default InvalidURL;

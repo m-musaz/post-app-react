@@ -4,21 +4,15 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { LoginId } from "../../Context/LoginId";
+import validationSchema from "../../Schemas/LoginFormValidationSchema";
+import LoginFormInitialVals from "../../Constants/LoginFormConstants";
 
 function LoginForm({ statefun }) {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [fetchedUser, setfetchedUser] = useState(null);
 
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-  });
-
   const handleSubmit = (values) => {
-    // Handle form submission here
     setfetchedUser(JSON.parse(localStorage.getItem(`${values.email}`)));
     setPassword(formik.values.password);
   };
@@ -26,9 +20,7 @@ function LoginForm({ statefun }) {
   useEffect(() => {
     if (fetchedUser) {
       if (password == fetchedUser.password) {
-        console.log(`welcome ${formik.values.email}`);
         localStorage.setItem("LoggedIn", JSON.stringify(fetchedUser));
-        console.log(localStorage);
         navigate("/feed");
       } else {
         alert("incorrect password");
@@ -37,10 +29,7 @@ function LoginForm({ statefun }) {
   }, [fetchedUser]);
 
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
+    initialValues: { LoginFormInitialVals },
     validationSchema,
     onSubmit: handleSubmit,
   });
