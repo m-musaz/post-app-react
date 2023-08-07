@@ -4,12 +4,14 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { useLocation } from "react-router-dom";
 
-function LoginSignup() {
+const Auth = () => {
   const [formstate, setformstate] = useState(false);
   const location = useLocation();
+
   useEffect(() => {
-    location.search == "?signout=true" ? setformstate(true) : undefined;
+    location.search == "?signout=true" ? setformstate(true) : false;
   }, []);
+
   return (
     <div className={`container-fluid ${styles.outercontainer}`}>
       <div className="row">
@@ -25,6 +27,6 @@ function LoginSignup() {
       </div>
     </div>
   );
-}
+};
 
-export default LoginSignup;
+export default Auth;
