@@ -46,6 +46,21 @@ function PostContainer({
     removePost(title);
   };
 
+  function checkUserLoggedIn(comment) {
+    if (userloggedIn) {
+      if (comment) {
+        return true;
+      }
+      if (userloggedIn?.id == userId) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   return (
     <>
       {editMode ? (
@@ -60,18 +75,14 @@ function PostContainer({
         <div className="card mt-4" style={{ width: "100%" }}>
           <div className="card-body">
             <div className="row justify-content-end">
-              {userloggedIn ? (
-                userloggedIn.id === userId ? (
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={handleRemovePost}
-                  ></button>
-                ) : (
-                  <></>
-                )
+              {checkUserLoggedIn() ? (
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={handleRemovePost}
+                ></button>
               ) : (
-                <></>
+                false
               )}
               <h5 className="card-title">{postTitle}</h5>
             </div>
@@ -89,31 +100,23 @@ function PostContainer({
             >
               Comments
             </a>
-            {userloggedIn ? (
-              userloggedIn.id === userId ? (
-                <a
-                  className="btn btn-dark mb-3 mx-3"
-                  role="button"
-                  onClick={handleEditMode}
-                >
-                  Edit Post
-                </a>
-              ) : (
-                <></>
-              )
+            {checkUserLoggedIn() ? (
+              <a
+                className="btn btn-dark mb-3 mx-3"
+                role="button"
+                onClick={handleEditMode}
+              >
+                Edit Post
+              </a>
             ) : (
-              <></>
+              false
             )}
 
             <div className="collapse" id={`collapse${postId}`}>
-              {userloggedIn ? (
-                userloggedIn.id ? (
-                  <NewComment userloggedIn={userloggedIn} />
-                ) : (
-                  <></>
-                )
+              {checkUserLoggedIn("c") ? (
+                <NewComment userloggedIn={userloggedIn} />
               ) : (
-                <></>
+                false
               )}
               {userComments?.map((comment) => (
                 <UserComment

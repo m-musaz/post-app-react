@@ -38,6 +38,18 @@ function UserFeed() {
     setPosts(posts.filter((post) => post.title != postTitle));
   };
 
+  function checkUserLoggedIn() {
+    if (userLoggedIn) {
+      if (userLoggedIn?.id) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   return (
     <>
       <div className="row">
@@ -54,33 +66,14 @@ function UserFeed() {
                 />
                 Threads
               </a>
-              {userLoggedIn ? (
-                userLoggedIn.id ? (
-                  <button
-                    className={`btn btn-outline-light me-2 px-4 ${styles.logoutbtn}`}
-                    type="button"
-                    onClick={handleLogout}
-                  >
-                    Log Out
-                  </button>
-                ) : (
-                  <>
-                    <button
-                      className={`btn btn-outline-light me-2 px-4 ${styles.loginbtn}`}
-                      type="button"
-                      onClick={handleLogin}
-                    >
-                      Login
-                    </button>
-                    <button
-                      className="btn btn-outline-light me-2 px-3"
-                      type="button"
-                      onClick={handleSignup}
-                    >
-                      Sign Up
-                    </button>
-                  </>
-                )
+              {checkUserLoggedIn() ? (
+                <button
+                  className={`btn btn-outline-light me-2 px-4 ${styles.logoutbtn}`}
+                  type="button"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </button>
               ) : (
                 <>
                   <button
@@ -106,22 +99,18 @@ function UserFeed() {
       <div className={`container-fluid  ${styles.outercontainer}`}>
         <div className="row ">
           <div className={`col-12 ${styles.innercontainer}`}>
-            {userLoggedIn ? (
-              userLoggedIn.id ? (
-                <>
-                  <div className="text-center mt-3">
-                    <h1 className="display-3">
-                      Welcome Back {userLoggedIn.name}
-                    </h1>
-                    <h5 className="display-5">User : {userLoggedIn.id}</h5>
-                  </div>
-                  <NewPost userId={userLoggedIn} />
-                </>
-              ) : (
-                <></>
-              )
+            {checkUserLoggedIn() ? (
+              <>
+                <div className="text-center mt-3">
+                  <h1 className="display-3">
+                    Welcome Back {userLoggedIn.name}
+                  </h1>
+                  <h5 className="display-5">User : {userLoggedIn.id}</h5>
+                </div>
+                <NewPost userId={userLoggedIn} />
+              </>
             ) : (
-              <></>
+              false
             )}
             <div className="row">
               {Loading ? (
