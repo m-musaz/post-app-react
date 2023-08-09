@@ -4,6 +4,7 @@ import axios from "axios";
 import EditPost from "./editPost";
 import NewComment from "./NewComment";
 import { RotatingLines } from "react-loader-spinner";
+import fetchData from "../../Services/FetchCommentData";
 
 function PostContainer({
   title,
@@ -20,21 +21,8 @@ function PostContainer({
   const [loading, setLoading] = useState(true);
 
   const handleClick = useCallback(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
-        );
-        setUserComments(res?.data);
-        if (res != null) {
-          setLoading(false);
-        }
-      } catch (err) {
-        alert(err);
-      }
-    }
     if (postId) {
-      fetchData();
+      fetchData(postId, setUserComments, setLoading);
     }
   }, []);
 
