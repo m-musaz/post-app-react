@@ -34,6 +34,9 @@
 .form-control {
   border-color: black !important;
 }
+.loaderrow {
+  text-align: center;
+}
 
 @keyframes App-logo-spin {
   from {

@@ -114,13 +114,15 @@ function UserFeed() {
             )}
             <div className="row">
               {Loading ? (
-                <RotatingLines
-                  strokeColor="grey"
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="96"
-                  visible={true}
-                />
+                <div className={`${styles.loaderrow} mt-5`}>
+                  <RotatingLines
+                    strokeColor="grey"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    width="50"
+                    visible={true}
+                  />
+                </div>
               ) : (
                 posts?.map((post) => (
                   <PostContainer

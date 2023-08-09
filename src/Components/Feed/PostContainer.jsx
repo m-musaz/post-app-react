@@ -113,13 +113,15 @@ function PostContainer({
                 false
               )}
               {loading ? (
-                <RotatingLines
-                  strokeColor="grey"
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="96"
-                  visible={true}
-                />
+                <div className={`loaderrow `}>
+                  <RotatingLines
+                    strokeColor="grey"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    width="50"
+                    visible={true}
+                  />
+                </div>
               ) : (
                 userComments?.map((comment) => (
                   <UserComment
