@@ -5,18 +5,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Maryam Abdul Ghafoor Best Teacher</h1>
+        <h1>Aima Shahid Best TA</h1>
+        <img src="https://sbasse.lums.edu.pk/sites/default/files/styles/image_crop_3_2_860x573/public/2020-12/Maryam%20Abdul%20Ghafoor.jpg?h=b16328c1"/>
       </header>
     </div>
   );
